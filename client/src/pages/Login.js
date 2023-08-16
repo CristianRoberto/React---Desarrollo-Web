@@ -16,9 +16,6 @@ class Login extends Component {
         }
     }
 
-
-
-
     handleChange = async e => {
         await this.setState({
             form: {
@@ -57,50 +54,45 @@ class Login extends Component {
     //         .catch(error => {
     //             console.log(error);
     //         });
-    
+
     //     }
 
 
+    iniciarSesion = async () => {
+        const { identificacionusuario, password } = this.state.form;
 
-
-iniciarSesion = async () => {
-    const { identificacionusuario, password } = this.state.form;
-
-    // Verificar si los campos están vacíos
-    if (!identificacionusuario || !password) {
-        alert('Campos vacíos, por favor completa todos los campos');
-        return;
-    }
-
-    try {
-        const response = await axios.get(`http://localhost:4000/login`, {
-            params: {
-                identificacionusuario,
-                password
-            }
-        });
-
-        if (response.status === 200) {
-            // Inicio de sesión exitoso
-            const userData = response.data.data[0]; // Obtén los datos del usuario
-            cookies.set('id', userData.id, { path: "/" });
-            cookies.set('identificacionusuario', userData.identificacionusuario, { path: "/" });
-            cookies.set('password', userData.password, { path: "/" });
-            cookies.set('rol', userData.rol, { path: "/" });
-            alert(`Bienvenido ${userData.identificacionusuario} ${userData.rol}`);
-            window.location.href = "./menu";
-        } else {
-            // Credenciales inválidas
-            alert('El usuario o la contraseña son incorrectos');
+        // Verificar si los campos están vacíos
+        if (!identificacionusuario || !password) {
+            alert('Campos vacíos, por favor completa todos los campos');
+            return;
         }
-    } catch (error) {
-        console.log('Error:', error);
-        alert('Ocurrió un error al intentar iniciar sesión');
+
+        try {
+            const response = await axios.get(`http://localhost:4000/login`, {
+                params: {
+                    identificacionusuario,
+                    password
+                }
+            });
+
+            if (response.status === 200) {
+                // Inicio de sesión exitoso
+                const userData = response.data.data[0]; // Obtén los datos del usuario
+                cookies.set('id', userData.id, { path: "/" });
+                cookies.set('identificacionusuario', userData.identificacionusuario, { path: "/" });
+                cookies.set('password', userData.password, { path: "/" });
+                cookies.set('rol', userData.rol, { path: "/" });
+                alert(`Bienvenido ${userData.identificacionusuario} ${userData.rol}`);
+                window.location.href = "./menu";
+            } else {
+                // Credenciales inválidas
+                alert('El usuario o la contraseña son incorrectos');
+            }
+        } catch (error) {
+            console.log('Error:', error);
+            alert('Ocurrió un error al intentar iniciar sesión');
+        }
     }
-}
-
-
-
 
 
     componentDidMount() {
@@ -127,14 +119,14 @@ iniciarSesion = async () => {
 
         const botonRegistroStyle = {
             ...footerStyle,
-        
-          };
-        
-          const botonRegistroHoverStyle = {
+
+        };
+
+        const botonRegistroHoverStyle = {
             ...botonRegistroStyle,
             backgroundColor: 'rgb(0, 136, 255)',
-            color:'black'
-          };
+            color: 'black'
+        };
 
 
 
@@ -155,28 +147,28 @@ iniciarSesion = async () => {
                             <br />
                             <input type="password" className="form-control" name="password" onChange={this.handleChange} />
                             <br />
-                            
-                            
+
+
                             <button className="btn btn-primary" onClick={() => this.iniciarSesion()}>
                                 Iniciar Sesión
                             </button>
                         </div>
-                         
+
                         <div>
-      {/* ... */}
-        <button
-          onClick={this.handleRegistroClick}
-          style={this.state.hover ? botonRegistroHoverStyle : botonRegistroStyle}
-          className='botonregistro'
-          onMouseEnter={() => this.setState({ hover: true })}
-          onMouseLeave={() => this.setState({ hover: false })}
-        >
-          Crear Nuevo Usuario
-        </button>
-        <br />
-        <br />
-      </div>
-    </div>
+                            {/* ... */}
+                            <button
+                                onClick={this.handleRegistroClick}
+                                style={this.state.hover ? botonRegistroHoverStyle : botonRegistroStyle}
+                                className='botonregistro'
+                                onMouseEnter={() => this.setState({ hover: true })}
+                                onMouseLeave={() => this.setState({ hover: false })}
+                            >
+                                Crear Nuevo Usuario
+                            </button>
+                            <br />
+                            <br />
+                        </div>
+                    </div>
 
 
                 </div>
