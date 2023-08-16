@@ -1,0 +1,10 @@
+html,
+body,
+#root,
+.App {
+  background: #000000;
+  color: rgb(0, 136, 255);
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
